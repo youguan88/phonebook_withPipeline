@@ -17,11 +17,13 @@ jobs:
               run: npm run eslint
             - name: Build
               run: npm run build:ui
+            - name: Create .env file
+              run: | 
+                touch .env
+                echo MONGODB_URI: ${{ secrets.MONGODB_URI }} >> .env
+                echo PORT: ${{ secrets.PORT }} >> .env
             - name: Run backend Dev
-              run: npm run dev
-              env:
-                MONGODB_URI: ${{ secrets.MONGODB_URI }}
-                PORT: ${{ secrets.PORT }}
+              run: npm run dev     
     deploy:
         if: ${{ github.event_name == 'push'}}
         needs: [Build]
