@@ -22,8 +22,8 @@ jobs:
                 touch .env
                 echo MONGODB_URI: ${{ secrets.MONGODB_URI }} >> .env
                 echo PORT: ${{ secrets.PORT }} >> .env
-            - name: Run backend Dev
-              run: npm run dev     
+            - name: Run backend
+              run: npm run start     
     deploy:
         if: ${{ github.event_name == 'push'}}
         needs: [Build]
