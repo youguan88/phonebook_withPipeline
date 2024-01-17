@@ -36,6 +36,11 @@ jobs:
             - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Build
               run: npm run build:ui
+            - name: Create .env file
+              run: | 
+                touch .env
+                echo MONGODB_URI: ${{ secrets.MONGODB_URI }} >> .env
+                echo PORT: ${{ secrets.PORT }} >> .env
             - name: deploy to fly.io
               run: flyctl deploy --remote-only
               env:
