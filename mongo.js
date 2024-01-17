@@ -23,10 +23,9 @@ if (process.argv.length === 5) {
   const name = process.argv[3];
   const number = process.argv[4];
 
-  console.log(name, number, id);
+  console.log(name, number);
 
   const person = new Person({
-    id,
     name,
     number,
   });
@@ -36,7 +35,7 @@ if (process.argv.length === 5) {
     mongoose.connection.close();
   });
 }
-if (process.argv.length == 3) {
+if (process.argv.length === 3) {
   Person.find({}).then((result) => {
     console.log('phonebook:');
     result.forEach((person) => {
