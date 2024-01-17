@@ -19,10 +19,8 @@ jobs:
               run: npm run build:ui
             - name: Create .env file
               run: | 
-                touch .env
-                echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
-                echo PORT=${{ secrets.PORT }} >> .env
-                cat .env
+                echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+                echo "PORT=${{ secrets.PORT }}" >> .env
             - name: Run backend
               run: npm run start     
     deploy:
