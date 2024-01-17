@@ -1,0 +1,51 @@
+name: Deployment pipeline
+on:
+    push:
+        branches: main
+
+jobs: 
+    Build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+            - name: Install dependencies
+              run: npm install
+            - name: Check Style
+              run: npm run eslint
+            - name: Build
+              run: npm run build:ui
+            - name: Run backend Dev
+              run: npm run dev
+    deploy:
+        if: ${{ github.event_name == 'push'}}
+        needs: [Build]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+            - uses: superfly/flyctl-actions/setup-flyctl@master
+            - name: Build
+              run: npm run build:ui
+            - name: deploy to fly.io
+              run: flyctl deploy --remote-only
+              env:
+                FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}  
+    tag_release:
+        if: ${{ github.event_name == 'push'}}
+        needs: [Build]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                fetch-depth: '0'
+            - name: Bump version and push tag
+              uses: anothrNick/github-tag-action@1.64.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                DEFAULT_BUMP: patch  
+

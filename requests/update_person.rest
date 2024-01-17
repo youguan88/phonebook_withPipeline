@@ -1,0 +1,20 @@
+PUT http://localhost:3001/api/persons/65389db318dfbd6610a2e6f8 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Cathy McCartson",
+    "number": "1111-5555-5555"
+}
+
+###
+
+PUT http://localhost:3001/api/persons/65389db318dfbd6610a2e6f8 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Ca",
+    "number": "1111-5555-5555"
+}
+
+###
+GET http://localhost:3001/api/persons
