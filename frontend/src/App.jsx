@@ -1,5 +1,28 @@
 import { useEffect, useState } from 'react'
 import personService from './services/persons'
+import PropTypes from 'prop-types';
+
+Content.propTypes = {
+  person: PropTypes.object,
+  handleDeleteBtn: PropTypes.func
+}
+
+Filter.propTypes = {
+  handle: PropTypes.func,
+  value: PropTypes.string
+}
+
+PersonForm.propTypes = {
+  handleNewName: PropTypes.func,
+  newName: PropTypes.string,
+  handleNewNumber: PropTypes.func,
+  newNumber: PropTypes.string,
+  addName: PropTypes.func
+}
+
+Notification.propTypes = {
+  notification: PropTypes.object,
+}
 
 const Content = ({ person, handleDeleteBtn }) => {
   return (
