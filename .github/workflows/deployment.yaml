@@ -19,6 +19,9 @@ jobs:
               run: npm run build:ui
             - name: Run backend Dev
               run: npm run dev
+              env:
+                MONGODB_URI: ${{ secrets.MONGODB_URI }}
+                PORT: ${{ secrets.PORT }}
     deploy:
         if: ${{ github.event_name == 'push'}}
         needs: [Build]
