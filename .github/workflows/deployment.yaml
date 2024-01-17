@@ -16,13 +16,7 @@ jobs:
             - name: Check Style
               run: npm run eslint
             - name: Build
-              run: npm run build:ui
-            - name: Create .env file
-              run: | 
-                echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
-                echo "PORT=${{ secrets.PORT }}" >> .env
-            - name: Run backend
-              run: npm run start     
+              run: npm run build:ui  
     deploy:
         if: ${{ github.event_name == 'push'}}
         needs: [Build]
@@ -35,11 +29,6 @@ jobs:
             - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Build
               run: npm run build:ui
-            - name: Create .env file
-              run: | 
-                touch .env
-                echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
-                echo PORT=${{ secrets.PORT }} >> .env
             - name: deploy to fly.io
               run: flyctl deploy --remote-only
               env:
