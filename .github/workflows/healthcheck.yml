@@ -1,0 +1,13 @@
+name: Periodic health check pipeline
+
+on:
+    schedule:
+    -  cron: '40 13 12 * *'
+jobs:
+    url_health_check:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Check the deployed service URL
+              uses: jtalk/url-health-check-action@v3
+              with:
+                url: ${{ secrets.PROD_URL }}
