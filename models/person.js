@@ -2,17 +2,18 @@
 /* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
 
-const url = process.env.MONGODB_URI;
+const { MONGODB_URI } = process.env;
 
 mongoose.set('strictQuery', false);
 
-console.log('connecting to', url);
-mongoose.connect(url)
+console.log('connecting to', MONGODB_URI);
+mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('connected to MongoDB');
   })
   .catch((error) => {
     console.log('error connecting to MongoDB:', error.message);
+    throw error;
   });
 
 const personSchema = new mongoose.Schema({
