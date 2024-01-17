@@ -27,6 +27,8 @@ jobs:
               with:
                 node-version: '16'
             - uses: superfly/flyctl-actions/setup-flyctl@master
+            - name: Install dependencies
+              run: npm install
             - name: Build
               run: npm run build:ui
             - name: deploy to fly.io
